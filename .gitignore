@@ -1,2 +1,4 @@
-.env
-./outputs
+venv
+outputs
+*.sb3
+*.old

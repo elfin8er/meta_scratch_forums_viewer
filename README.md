@@ -1,0 +1,1 @@
+Have you ever wanted to read the Scratch forums in a Scratch project? No? Well, now you can! Introducing <insert-catchy-title-here>! An all-new way to browse the Scratch forums in your very own Scratch project! Now you can farm project views just by browsing the forums.
