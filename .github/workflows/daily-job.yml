@@ -1,0 +1,31 @@
+name: Update Project
+
+on:
+  schedule:
+    - cron: '0 17 * * *' # Run every day at 17:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/checkout@v4
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.3'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run the script
+        run: python main.py
+        env:
+          SCRATCH_USERNAME: ${{ secrets.SCRATCH_USERNAME }}
+          SCRATCH_PASSWORD: ${{ secrets.SCRATCH_PASSWORD }}
+          SCRATCH_PROJECT_ID: ${{ secrets.SCRATCH_PROJECT_ID }}
