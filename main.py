@@ -63,7 +63,7 @@ for forum_id in lists[list_id_map["forum_ids"]][1]:
             "titles": entry.get("title").split(' :: ')[-1],
             "posts": inscriptis.get_text(entry.get("summary")),
             "authors": entry.get("author_detail", {}).get("name"),
-            "topics": entry.get("id").split("/")[-1],
+            "topics": entry.get("link").split("/")[-2],
             "post_time": days_since_2000_utc(datetime.fromisoformat(entry.get("published")))
         }
 
@@ -79,6 +79,6 @@ with open("./src/project.json", "w") as file:
 # Connect to Scratch
 session = sa.login(os.getenv("SCRATCH_USERNAME"), os.getenv("SCRATCH_PASSWORD"))
 project = session.connect_project(os.getenv("SCRATCH_PROJECT_ID"))
-project_name = f"Scratch Forum Viewer [Updated: {datetime.now(timezone.utc).strftime('%m-%d @ %H:%M UTC')}]"
+project_name = f"Retro Scratch Forums [Updated: {datetime.now(timezone.utc).strftime('%m-%d @ %H:%M UTC')}]"
 project.set_json(json.dumps(project_data, separators=(',', ':')))
 project.set_title(project_name)
