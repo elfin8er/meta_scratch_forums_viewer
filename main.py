@@ -61,7 +61,7 @@ for forum_id in lists[list_id_map["forum_ids"]][1]:
     for entry in feed.entries[:LIMIT]:
         extracted_data = {
             "titles": entry.get("title").split(' :: ')[-1],
-            "posts": inscriptis.get_text(entry.get("summary")),
+            "posts": inscriptis.get_text(entry.get("summary")).replace("\n", "\\n"),
             "authors": entry.get("author_detail", {}).get("name"),
             "topics": entry.get("link").split("/")[-2],
             "post_time": days_since_2000_utc(datetime.fromisoformat(entry.get("published")))
@@ -77,6 +77,7 @@ with open("./src/project.json", "w") as file:
     json.dump(project_data, file, separators=(',', ':'))
 
 # Connect to Scratch
+print(f"Uploading project {os.getenv('SCRATCH_PROJECT_ID')}...")
 session = sa.login(os.getenv("SCRATCH_USERNAME"), os.getenv("SCRATCH_PASSWORD"))
 project = session.connect_project(os.getenv("SCRATCH_PROJECT_ID"))
 project_name = f"Retro Scratch Forums [Updated: {datetime.now(timezone.utc).strftime('%m-%d @ %H:%M UTC')}]"
